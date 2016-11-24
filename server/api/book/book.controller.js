@@ -136,9 +136,12 @@ export function search(req, res) {
     process.exit(-1);
   }
   googleBookSearch.volumes.list({
-    auth: process.env.GOOGLE_BOOKS_API_KEY,
+    auth: process.env.GOOGLE_BOOKS_API_KEY, //dont forget to enable google books api
     q: req.params.search
   }, function (err, data) {
+    if (err) {
+      return handleError(res, err);
+    }
     try {
       Book.create({
         title: data.items[0].volumeInfo.title,

@@ -7,8 +7,27 @@ import routes from './allbooks.routes';
 
 export class AllbooksComponent {
   /*@ngInject*/
-  constructor() {
-    this.message = 'Hello';
+  /*@ngInject*/
+
+  $http;
+  $scope;
+  socket;
+  books;
+
+  constructor($http, $scope, socket) {
+    this.$http = $http;
+
+    this.socket = socket;
+    $scope.$on('$destroy', function () {
+      socket.unsyncUpdates('allbooks');
+    });
+  }
+
+  $onInit() {
+    this.$http.get('/api/books').then(response => {
+      this.books = response.data;
+      this.socket.syncUpdates('allbooks', this.books);
+    });
   }
 }
 

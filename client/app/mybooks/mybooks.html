@@ -1,1 +1,14 @@
-<div>This is the mybooks view.</div>
+<div class="container">
+
+  <ul>
+    <li ng-repeat=" book in mybooksCtrl.books">{{book.title}}</li>
+  </ul>
+<form ng-submit="mybooksCtrl.addBook()" method="post" class="form-inline" role="form" name="form">
+
+	<div class="form-group">
+		<label class="sr-only" for="title"><span class="glyphicon glyphicon-plus"></span></label>
+		<input type="text" class="form-control" name="title" id="title" placeholder="Input ..." ng-model="mybooksCtrl.title">
+	</div>
+	<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
+</form>
+</div>

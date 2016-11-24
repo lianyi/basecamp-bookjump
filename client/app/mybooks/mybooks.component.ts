@@ -7,8 +7,41 @@ import routes from './mybooks.routes';
 
 export class MybooksComponent {
   /*@ngInject*/
-  constructor() {
-    //this.message = 'Hello';
+  title;
+  $http;
+  $scope;
+  socket;
+  books;
+  getCurrentUser;
+
+  constructor($http, $scope, socket, Auth) {
+    this.$http = $http;
+    this.socket = socket;
+    this.getCurrentUser = Auth.getCurrentUser;
+    $scope.$on('$destroy', function () {
+      socket.unsyncUpdates('books');
+    });
+  }
+
+
+  $onInit() {
+
+    //this.socket.syncUpdates('books', this.books);
+    this.getCurrentUser().then((user) =>
+      this.$http.get('/api/books/user/' + user._id).then(response => {
+        this.books = response.data;
+      })
+    )
+  }
+
+  addBook() {
+    if (this.title)
+      this.$http.get('/api/books/add/' + this.title).then(response => {
+        if (response.data && response.data.title) {
+          this.books.push(response.data);
+          this.title='';
+        }
+      });
   }
 }
 
