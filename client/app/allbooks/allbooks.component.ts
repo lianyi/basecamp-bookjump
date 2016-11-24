@@ -29,6 +29,13 @@ export class AllbooksComponent {
       this.socket.syncUpdates('allbooks', this.books);
     });
   }
+
+  request(book) {
+    book.requested = true;
+    this.$http.put('/api/books/' + book._id, book).then(response => {
+      book.note = 'requested!';
+    }, (errorResponse) => book.requested = true);
+  }
 }
 
 export default angular.module('basecampBookjumpApp.allbooks', [uiRouter])

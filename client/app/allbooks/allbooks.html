@@ -1,5 +1,20 @@
 <div class="container">
-  <ul>
-    <li ng-repeat=" book in allbooksCtrl.books">{{book.title}}</li>
-  </ul>
+  <div class="row">
+    <div ng-show="!mybooksCtrl.books">Loading...</div>
+    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" style="padding-bottom: 20px;"
+         ng-repeat="book in allbooksCtrl.books">
+      <img style="width: 80px;height: 100px;" ng-src="{{book.cover}}" alt="book cover image  ">
+      <h4 class="card-title">{{book.title}}</h4>
+      <button ng-if="!book.requested" type="button" class="btn btn-default" ng-class="{'btn-primary':book.requested}"
+              ng-click="allbooksCtrl.request(book)">Request
+      </button>
+      <div ng-if="book.note" class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true"
+                ng-click="book.note=''">&times;</button>
+        {{book.note}}
+      </div>
+
+    </div>
+  </div>
 </div>
+

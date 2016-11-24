@@ -39,9 +39,16 @@ export class MybooksComponent {
       this.$http.get('/api/books/add/' + this.title).then(response => {
         if (response.data && response.data.title) {
           this.books.push(response.data);
-          this.title='';
+          this.title = '';
         }
       });
+  }
+
+  accept(book) {
+    book.requested = false;
+    this.$http.put('/api/books/' + book._id, book).then(response => {
+      book.note = 'request accepted!';
+    }, (errorResponse) => book.requested = false);
   }
 }
 

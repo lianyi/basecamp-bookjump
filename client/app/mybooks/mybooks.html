@@ -1,14 +1,28 @@
 <div class="container">
+  <div class="row">
+    <div ng-show="!mybooksCtrl.books">Loading...</div>
+    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" style="padding-bottom: 20px;"
+         ng-repeat="book in mybooksCtrl.books">
+      <img style="width: 80px;height: 100px;" ng-src="{{book.cover}}" alt="book cover image  ">
+      <h4 class="card-title">{{book.title}}</h4>
+      <button ng-if="book.requested" type="button" class="btn btn-default" ng-class="{'btn-primary':book.requested}" ng-click="mybooksCtrl.accept(book)">Accept Request</button>
+      <div ng-if="book.note" class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true"
+                ng-click="book.note=''">&times;</button>
+        {{book.note}}
+      </div>
+    </div>
+  </div>
+</div>
 
-  <ul>
-    <li ng-repeat=" book in mybooksCtrl.books">{{book.title}}</li>
-  </ul>
-<form ng-submit="mybooksCtrl.addBook()" method="post" class="form-inline" role="form" name="form">
+<div class="container">
+  <form ng-submit="mybooksCtrl.addBook()" method="post" class="form-inline" role="form" name="form">
 
-	<div class="form-group">
-		<label class="sr-only" for="title"><span class="glyphicon glyphicon-plus"></span></label>
-		<input type="text" class="form-control" name="title" id="title" placeholder="Input ..." ng-model="mybooksCtrl.title">
-	</div>
-	<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
-</form>
+    <div class="form-group">
+      <label class="sr-only" for="title"><span class="glyphicon glyphicon-plus"></span></label>
+      <input type="text" class="form-control" name="title" id="title" placeholder="Input ..."
+             ng-model="mybooksCtrl.title">
+    </div>
+    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
+  </form>
 </div>
