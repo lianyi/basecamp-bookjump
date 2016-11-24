@@ -26,3 +26,9 @@ Run `gulp build` for building and `gulp serve` for preview.
 ## Testing
 
 Running `npm test` will run the unit tests with karma.
+
+
+##deploy 
+
+    git subtree split --prefix dist master
+    git push heroku c5ebef15c1de79db9ff4f681fd8b3ff9ace616d6:master  --force
