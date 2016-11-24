@@ -9,6 +9,8 @@ module.exports = {
   DOMAIN: 'http://localhost:9000',
   SESSION_SECRET: 'bookjump-secret',
 
+  GOOGLE_BOOKS_API_KEY: '',
+  MONGODB_URI: '',
   TWITTER_ID: 'app-id',
   TWITTER_SECRET: 'secret',
 
